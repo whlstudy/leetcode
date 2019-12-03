@@ -14,6 +14,7 @@ public class TrappingRainWater {
         System.out.println(trap(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
     }
 
+    // 借助栈实现，栈的操作太耗时
     public static int trap(int[] height) {
        Stack<Integer> st = new Stack<>();
        int i = 0, n = height.length, res = 0;
@@ -27,5 +28,49 @@ public class TrappingRainWater {
            }
        }
        return res;
+    }
+
+    // 同样思想不使用栈实现
+    public int trap1(int[] height) {
+        int vol = 0;
+        if(height != null && height.length > 0){
+            int length = height.length;
+
+            int i=0;
+            while(i+1<length){
+                int e = i+1;
+
+                if(height[i] != 0){
+                    int indexMax = e;
+
+                    while(e < length){
+                        if(height[e] > height[i]){
+                            indexMax = e;
+                            break;
+                        }
+                        else{
+                            if(height[e] > height[indexMax]){
+                                indexMax = e;
+                            }
+                            e++;
+                        }
+                    }
+                    vol += calcVol(i, indexMax, height);
+                    i = indexMax;
+                }
+                else{
+                    i++;
+                }
+            }
+        }
+        return vol;
+    }
+
+    public int calcVol(int s, int e, int[] height){
+        int vol = (e-s-1) * Math.min(height[e], height[s]);
+        for(int j=s+1; j<e; j++){
+            vol -= height[j];
+        }
+        return vol;
     }
 }
