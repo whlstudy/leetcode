@@ -3,6 +3,12 @@ package leetcode.arrays;
 /**
  * @author whl
  * @date 2019/10/22 7:37 下午
+ *
+ * Given an unsorted integer array, find the smallest missing positive integer.
+ * Your algorithm should run in O(n) time and uses constant extra space.
+ *
+ * 找到丢失的最小正整数，此题可以借助数组来做，在下标为n的位置插入大小为n-1的数，简单就能找到最小的断点，
+ * 也就是最小丢失的数。如果数组中有重复的数字则简单修改第二份重复数字为负值即可。
  */
 public class FirstMisPositive {
     public static void main(String[] args) {
